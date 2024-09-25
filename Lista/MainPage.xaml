@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Lista.MainPage"
+             xmlns:viewmodel="clr-namespace:Lista.mvvm"
+             x:DataType="viewmodel:CheckListViewModel">
+    <!--
+        Hej nie kopiuj tego bez myślnie,
+        szybki tutorial co sie tutaj dzieje
+        to czego używam to tak zwany mvvm
+        Model View ViewModel
+        Model-dane
+        View-widok
+        ViewModel-kod sklejający model z view ułatwiający robote
+        
+        copopierwsze kliknijce na nazwe projektu prawym przyciskiem i kliknijcie
+        Manage NuGet Packages...
+        i zgrajcie CommunityToolkit.Mvvm
+        bedzie oczywiście bład że SDK .NET sie nie zgadza to zgrajcie na visualu sdk windowsu 10
+        albo olejcie to i kliknijcie dwa razy w nazwe projektu
+        i w <propertygroup> wklej to
+        
+        <WindowsSdkPackageVersion>10.0.19041.41</WindowsSdkPackageVersion>
+    
+        Text={Binding} służy do tego żeby wychwytywać auktualne z,miene i zmieniać je oraz sczytywać
+        tam gdzie macie kropke po Binding służy do tego żeby nie pisać ponownie tego samego i poprostu kopiuje nazwe
+    
+        w button nie mamy clicked bo bierzemy używamy komende z innego pliku więc jest to różnica
+        
+        dobra teraz naszybko jak łączyć pliki
+    
+        xmlns:viewmodel="clr-namespace:Lista.mvvm"
+        dobra to służy byśmy mieli połaczenie z odpowiednim folderem i dali mu nazwe której bedziemy używać
+        w tym przypadku jest to viewmodel
+    
+        x:DataType="viewmodel:CheckListViewModel"
+        tu podajemy już jaki konkretny plik nam chodzi odnosząc sie do nazwy pliku
+    
+        dalej prosze zerknąć i przeczytać poradniki z plików
+        mvvm/CheckListViewModel.cs
+        Mainpage.Xaml.cs
+        MauiProgram.cs
+    -->
+    <ScrollView>
+        <Grid
+            RowDefinitions="auto,*"
+            ColumnDefinitions="8*,2*"
+            BackgroundColor="White">
+            <Editor
+                Text="{Binding Pisz}"
+                BackgroundColor="LightGrey"
+                TextColor="Black"/>
+            <Button
+                Grid.Column="1"
+                Text="Dodaj"
+                Command="{Binding addCommand}"
+                BackgroundColor="Red"
+                TextColor="White"
+                />
+            <CollectionView
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                ItemsSource="{Binding Items}"
+                >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Label Text="{Binding .}"
+                                   TextColor="Red"/>
+                            <BoxView
+                                HeightRequest="1"
+                                Color="Red"
+                                />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                
+            </CollectionView>
+
+        </Grid>
+    </ScrollView>
+
+</ContentPage>
